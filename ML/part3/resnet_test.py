@@ -186,6 +186,8 @@ for epoch in range(1, epochs + 1) :
     for dataloader_index, (data, label) in enumerate(train_dataloader) :
         # hypothesis
         hypothesis = model(data)
+        prediction = hypothesis.argmax(dim=1).long()
+        accuracy = (prediction == label).float().mean()
 
         # cost
         cost = F.cross_entropy(hypothesis, label)
@@ -198,7 +200,7 @@ for epoch in range(1, epochs + 1) :
         vis.line(X=torch.Tensor([vis_index]), Y=torch.Tensor([cost.item()]), win=graph_id, update="append", env="main")
         vis_index = vis_index + 1
 
-    print('Epoch {:4d}/{}, Cost: {:.6f}'.format(epoch, epochs, cost.item()))
+    print('Epoch {:4d}/{}, Cost: {:.6f}, Accuracy: {}'.format(epoch, epochs, cost.item(), accuracy))
     lr_sche.step()
 train_end_time = time.time()
 print("train time :" , (train_end_time - train_start_time), "s")
