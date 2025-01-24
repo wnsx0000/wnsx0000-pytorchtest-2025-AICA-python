@@ -12,11 +12,11 @@ import torch.nn.functional as F
 import time
 
 # parameter
-learning_rate = 0.005
-epochs = 20 # 50
+learning_rate = 0.05
+epochs = 50 # 50
 batch_size = 256 # 512
-train_size = 10000 # 60000
-test_size = 1000
+train_size = 60000 # 60000
+test_size = 10000
 
 # dataset
 transform = transforms.Compose([
@@ -89,6 +89,7 @@ model = VGG(conv_layers, num_classes=10)
 optimizer = optim.SGD(model.parameters(), lr=learning_rate)
 
 # train
+lr_sche = optim.lr_scheduler.StepLR(optimizer, step_size=4, gamma=0.9)
 train_start_time = time.time()
 model.train()
 for epoch in range(1, epochs + 1) :
@@ -105,6 +106,7 @@ for epoch in range(1, epochs + 1) :
         optimizer.step()
 
     print('Epoch {:4d}/{}, Cost: {:.6f}'.format(epoch, epochs, cost.item()))
+    lr_sche.step()
 train_end_time = time.time()
 print("train time :" , (train_end_time - train_start_time), "s")
 
