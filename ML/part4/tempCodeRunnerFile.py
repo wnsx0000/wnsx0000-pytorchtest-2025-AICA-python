@@ -1,9 +1,7 @@
-import torch
-import torch.nn.functional as F
-import torch.nn as nn
-import torch.optim as optim
+expection = hypothesis.view(hypothesis.size(0), hypothesis.size(2), -1)
+    # expection = F.softmax(expection, dim=1)
+    # expection = expection.argmax(dim=2)
+    # accuracy = (expection == y_train).float().mean()
 
-sentence = ("if you want to build a ship, don't drum up people together to "
-"collect wood and don't assign them tasks and work, but rather "
-"teach them to long for the endless immensity of the sea.")
-print(len(sentence))
+    # if epoch % (epochs / 10) == 0 :
+    #     print('Epoch {:4d}/{}, Cost: {:.6f}, Accuracy: {}'.format(epoch, epochs, cost.item(), accuracy))    
